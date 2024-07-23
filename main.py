@@ -62,18 +62,16 @@ while True:
         print("Printing student list...")
         print('----------------------------------------------------')
         for student in grade_book.student_list:
-            print(f"Name: {student['names']}", f"Email: {student['email']}")
+            print(f"Name: {student.names}", f"Email: {student.email}")
         print('----------------------------------------------------')
-        break
 
     elif choice == "8":
         print("Printing course list...")
         print('----------------------------------------------------')
         for course in grade_book.course_list:
-            print(f"Name: {course['name']}",
-                  f"Trimester: {course['trimester']}")
+            print(f"Name: {course.name}",
+                  f"Trimester: {course.trimester}")
         print('----------------------------------------------------')
-        break
 
     elif choice == "9":
         print("Exiting Grade Book Application...")

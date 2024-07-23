@@ -16,12 +16,7 @@ class GradeBook:
 
     def add_student(self, email, names):
         student = Student(email, names)
-        self.student_list.append({
-            'email': student.email,
-            'names': student.names,
-            'courses_registered': [],
-            'GPA': 0.0
-        })
+        self.student_list.append(student)
         self.save_students()
         print('----------------------------------------------')
         print(f"Student {student.names} added successfully.")
@@ -31,11 +26,7 @@ class GradeBook:
 
     def add_course(self, name, trimester, credits):
         course = Course(name, trimester, credits)
-        self.course_list.append({
-            'name': course.name,
-            'trimester': course.trimester,
-            'credits': course.credits,
-        })
+        self.course_list.append(course)
         self.save_courses()
         print('----------------------------------------------')
         print(f"Course {course.name} added successfully.")
@@ -58,6 +49,10 @@ class GradeBook:
         if student and course:
             student.register_for_course(course)
             self.save_students()
+            print('----------------------------------------------')
+            print(f"Student {student.names} registered for course {
+                  course.name}.")
+            print('----------------------------------------------')
         else:
             print("Student or course not found.")
 
@@ -96,7 +91,8 @@ class GradeBook:
         Save the course data to a JSON file.
         """
         with open(COURSES_JSON, 'w') as file:
-            json.dump(self.course_list, file, indent=4)
+            json.dump(
+                [course.__dict__ for course in self.course_list], file, indent=4)
 
     def generate_transcript(self, student):
         print('------------------------------------------------------------')

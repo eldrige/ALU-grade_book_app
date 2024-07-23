@@ -1,17 +1,22 @@
 [
-  {
-    "name": "Reflective Thinking",
-    "trimester": "Jan 2024",
-    "credits": 20
-  },
-  {
-    "name": "Python Fundamentals",
-    "trimester": "Jan 2024",
-    "credits": 20
-  },
-  {
-    "name": "IPD",
-    "trimester": "May 2024",
-    "credits": 70.0
-  }
+    {
+        "name": "Reflective Thinking",
+        "trimester": "Jan 2024",
+        "credits": 20
+    },
+    {
+        "name": "Python Fundamentals",
+        "trimester": "Jan 2024",
+        "credits": 20
+    },
+    {
+        "name": "IPD",
+        "trimester": "May 2024",
+        "credits": 70.0
+    },
+    {
+        "name": "Linux essentials",
+        "trimester": "Jan 2024",
+        "credits": 40
+    }
 ]
