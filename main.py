@@ -26,7 +26,6 @@ while True:
         trimester = input("Enter course trimester: ")
         credits = int(input("Enter course credits: "))
         course = grade_book.add_course(name, trimester, credits)
-        print(f"Course {course.name} added successfully.")
 
     elif choice == "3":
         email = input("Enter student email: ")

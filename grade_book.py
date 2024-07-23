@@ -1,5 +1,9 @@
+import csv
 from student import Student
 from course import Course
+
+students_csv_file = 'students.csv'
+courses_csv_file = 'courses.csv'
 
 
 class GradeBook:
@@ -10,13 +14,21 @@ class GradeBook:
     def add_student(self, email, names):
         student = Student(email, names)
         self.student_list.append(student)
-        # print(f"Student {student.names} added successfully.")
+        self.save_students_to_csv()
+        print('----------------------------------------------')
+        print(f"Student {student.names} added successfully.")
+        print('----------------------------------------------')
+
         return student
 
     def add_course(self, name, trimester, credits):
         course = Course(name, trimester, credits)
         self.course_list.append(course)
+        self.save_courses_to_csv()
+        print('----------------------------------------------')
         print(f"Course {course.name} added successfully.")
+        print('----------------------------------------------')
+
         return course
 
     def register_student_for_course(self, student, course):
@@ -37,6 +49,19 @@ class GradeBook:
     #                 students.append(student)
     #                 break
     #     return students
+
+    def save_students_to_csv(self):
+        with open(students_csv_file, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for student in self.student_list:
+                writer.writerow([student.email, student.names])
+
+    def save_courses_to_csv(self):
+        with open(courses_csv_file, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for course in self.course_list:
+                writer.writerow(
+                    [course.name, course.trimester, course.credits])
 
     def generate_transcript(self, student):
         print(f"Transcript for {student.names}")
