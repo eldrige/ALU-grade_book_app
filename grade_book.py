@@ -99,13 +99,15 @@ class GradeBook:
             json.dump(self.course_list, file, indent=4)
 
     def generate_transcript(self, student):
+        print('------------------------------------------------------------')
         print(f"Transcript for {student.names}")
         print(f"Email: {student.email}")
         print(f"GPA: {student.GPA:.2f}")
         print("Courses Registered:")
         for course in student.courses_registered:
             print(
-                f"- {course.name} ({course.trimester}, {course.credits} credits) - Grade: {course.grade}")
+                f"- {course['name']} ({course['trimester']}, {course['credits']} credits) - Grade: {course['grade']}")
+        print('------------------------------------------------------------')
 
     def load_students_from_json(self):
         try:
