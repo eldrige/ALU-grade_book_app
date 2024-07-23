@@ -1,22 +1,28 @@
 import csv
+import json
 from student import Student
 from course import Course
 
-students_csv_file = 'students.csv'
-courses_csv_file = 'courses.csv'
+students_json = 'students.json'
+courses_json = 'courses.json'
 
 
 class GradeBook:
     def __init__(self):
         self.student_list = []
         self.course_list = []
-        self.load_students_from_csv()
-        self.load_courses_from_csv()
+        self.load_students_from_json()
+        self.load_courses_from_json()
 
     def add_student(self, email, names):
         student = Student(email, names)
-        self.student_list.append(student)
-        self.save_students_to_csv()
+        self.student_list.append({
+            'email': student.email,
+            'names': student.names,
+            'courses_registered': [],
+            'GPA': 0.0
+        })
+        self.save_students()
         print('----------------------------------------------')
         print(f"Student {student.names} added successfully.")
         print('----------------------------------------------')
@@ -25,8 +31,12 @@ class GradeBook:
 
     def add_course(self, name, trimester, credits):
         course = Course(name, trimester, credits)
-        self.course_list.append(course)
-        self.save_courses_to_csv()
+        self.course_list.append({
+            'name': course.name,
+            'trimester': course.trimester,
+            'credits': course.credits,
+        })
+        self.save_courses()
         print('----------------------------------------------')
         print(f"Course {course.name} added successfully.")
         print('----------------------------------------------')
@@ -52,18 +62,19 @@ class GradeBook:
                     break
         return students
 
-    def save_students_to_csv(self):
-        with open(students_csv_file, 'a', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            for student in self.student_list:
-                writer.writerow([student.email, student.names])
+    def save_students(self):
+        """
+        Save the student data to a JSON file.
+        """
+        with open(students_json, 'w') as file:
+            json.dump(self.student_list, file, indent=4)
 
-    def save_courses_to_csv(self):
-        with open(courses_csv_file, 'a', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            for course in self.course_list:
-                writer.writerow(
-                    [course.name, course.trimester, course.credits])
+    def save_courses(self):
+        """
+        Save the course data to a JSON file.
+        """
+        with open(courses_json, 'w') as file:
+            json.dump(self.course_list, file, indent=4)
 
     def generate_transcript(self, student):
         print(f"Transcript for {student.names}")
@@ -74,35 +85,20 @@ class GradeBook:
             print(
                 f"- {course.name} ({course.trimester}, {course.credits} credits) - Grade: {course.grade}")
 
-    def load_students_from_csv(self):
+    def load_students_from_json(self):
         try:
-            with open(students_csv_file, 'r', newline='') as csvfile:
-                reader = csv.reader(csvfile)
-                next(reader)  # Skip the header row
-                for row in reader:
-                    email, names = row
-                    student = Student(email, names)
-                    self.student_list.append(student)
+            with open(students_json, 'r') as file:
+                students = json.load(file)
+                self.student_list = students
         except FileNotFoundError:
             print(
-                f"No {students_csv_file} file found. Starting with an empty student list.")
+                f"No {students_json} file found. Starting with an empty student list.")
 
-    def load_courses_from_csv(self):
+    def load_courses_from_json(self):
         try:
-            with open(courses_csv_file, 'r', newline='') as csvfile:
-                reader = csv.reader(csvfile)
-                next(reader)  # Skip the header row
-                for row in reader:
-                    name, trimester, credit = row
-                    course = Course(name, trimester, credit)
-                    self.course_list.append(course)
+            with open(courses_json, 'r') as file:
+                courses = json.load(file)
+                self.course_list = courses
         except FileNotFoundError:
             print(
-                f"No {courses_csv_file} file found. Starting with an empty course list.")
-
-    def update_student_course_in_csv(self, email, course):
-        with open(courses_csv_file, 'a', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            for course in self.course_list:
-                writer.writerow(
-                    [course.name, course.trimester, course.credits])
+                f"No {courses_json} file found. Starting with an empty course list.")

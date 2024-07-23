@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Reflective Thinking",
+    "trimester": "Jan 2024",
+    "credits": 20
+  },
+  {
+    "name": "Python Fundamentals",
+    "trimester": "Jan 2024",
+    "credits": 20
+  },
+  {
+    "name": "IPD",
+    "credits": 20.0,
+    "grade": 70.0
+  }
+]

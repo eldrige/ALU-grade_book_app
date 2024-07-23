@@ -32,22 +32,41 @@ while True:
     elif choice == "3":
         email = input("Enter student email: ")
         student = next(
-            (s for s in grade_book.student_list if s.email == email), None)
+            (s for s in grade_book.student_list if s["email"] == email), None)
         if student:
             name = input("Enter course name: ")
             course = next(
-                (c for c in grade_book.course_list if c.name == name), None)
+                (c for c in grade_book.course_list if c['name'] == name), None)
             if course:
                 grade_book.register_student_for_course(student, course)
                 print('-----------------------------------------------------')
                 print(f"{student.names} registered for {
                       course.name} successfully.")
                 print('----------------------------------------------------')
-
             else:
-                print("Course not found.")
+                print("Registering ........")
+
         else:
             print("Student not found.")
+
+        # email = input("Enter student email: ")
+        # student = next(
+        #     (s for s in grade_book.student_list if s.email == email), None)
+        # if student:
+        #     name = input("Enter course name: ")
+        #     course = next(
+        #         (c for c in grade_book.course_list if c.name == name), None)
+        #     if course:
+        #         grade_book.register_student_for_course(student, course)
+        #         print('-----------------------------------------------------')
+        #         print(f"{student.names} registered for {
+        #               course.name} successfully.")
+        #         print('----------------------------------------------------')
+
+        #     else:
+        #         print("Course not found.")
+        # else:
+        #     print("Student not found.")
 
     elif choice == "4":
         grade_book.calculate_GPA()
@@ -76,19 +95,19 @@ while True:
 
     elif choice == "7":
         print("Printing student list...")
-        print('-----------------------------------------')
+        print('----------------------------------------------------')
         for student in grade_book.student_list:
-            print(f"- {student.names} ({student.email})")
-        print('-----------------------------------------')
+            print(f"Name: {student['names']}", f"Email: {student['email']}")
+        print('----------------------------------------------------')
         break
 
     elif choice == "8":
         print("Printing course list...")
-        print('-----------------------------------------')
+        print('----------------------------------------------------')
         for course in grade_book.course_list:
-            print(
-                f"- {course.name} ({course.trimester}) - {course.credits} credits")
-        print('-----------------------------------------')
+            print(f"Name: {course['name']}",
+                  f"Trimester: {course['trimester']}")
+        print('----------------------------------------------------')
         break
 
     elif choice == "9":
