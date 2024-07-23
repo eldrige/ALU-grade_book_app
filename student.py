@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from course import Course
+import random
 
 
 class Student:
@@ -23,10 +24,12 @@ class Student:
         Args:
             course (dict): A dictionary with course details (name, credits, grade).
         """
+        grade = random.randint(40, 100)
         self.courses_registered.append({
             'name': course.name,
             'trimester': course.trimester,
             'credits': course.credits,
+            'grade': grade
         })
         # self.calculate_GPA()
 

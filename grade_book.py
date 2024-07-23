@@ -79,7 +79,7 @@ class GradeBook:
         students = []
         for student in self.student_list:
             for course in student.courses_registered:
-                if grade_range[0] <= course.grade <= grade_range[1]:
+                if grade_range[0] <= course['grade'] <= grade_range[1]:
                     students.append(student)
                     break
         return students
