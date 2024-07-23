@@ -10,6 +10,8 @@ class GradeBook:
     def __init__(self):
         self.student_list = []
         self.course_list = []
+        self.load_students_from_csv()
+        self.load_courses_from_csv()
 
     def add_student(self, email, names):
         student = Student(email, names)
@@ -71,3 +73,29 @@ class GradeBook:
         for course in student.courses_registered:
             print(
                 f"- {course.name} ({course.trimester}, {course.credits} credits) - Grade: {course.grade}")
+
+    def load_students_from_csv(self):
+        try:
+            with open(students_csv_file, 'r', newline='') as csvfile:
+                reader = csv.reader(csvfile)
+                next(reader)  # Skip the header row
+                for row in reader:
+                    email, names = row
+                    student = Student(email, names)
+                    self.student_list.append(student)
+        except FileNotFoundError:
+            print(
+                f"No {students_csv_file} file found. Starting with an empty student list.")
+
+    def load_courses_from_csv(self):
+        try:
+            with open(courses_csv_file, 'r', newline='') as csvfile:
+                reader = csv.reader(csvfile)
+                next(reader)  # Skip the header row
+                for row in reader:
+                    name, trimester, credit = row
+                    course = Course(name, trimester, credit)
+                    self.course_list.append(course)
+        except FileNotFoundError:
+            print(
+                f"No {courses_csv_file} file found. Starting with an empty course list.")

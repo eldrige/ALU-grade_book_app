@@ -12,9 +12,11 @@ while True:
     print("4. Calculate student ranking")
     print("5. Search by grade")
     print("6. Generate transcript")
-    print("7. Exit")
+    print("7. Print student list")
+    print("8. Print course list")
+    print("9. Exit")
 
-    choice = input("Enter your choice (1-7): ")
+    choice = input("Enter your choice (1-9): ")
 
     if choice == "1":
         email = input("Enter student email: ")
@@ -37,8 +39,11 @@ while True:
                 (c for c in grade_book.course_list if c.name == name), None)
             if course:
                 grade_book.register_student_for_course(student, course)
+                print('-----------------------------------------------------')
                 print(f"{student.names} registered for {
                       course.name} successfully.")
+                print('----------------------------------------------------')
+
             else:
                 print("Course not found.")
         else:
@@ -70,6 +75,23 @@ while True:
             print("Student not found.")
 
     elif choice == "7":
+        print("Printing student list...")
+        print('-----------------------------------------')
+        for student in grade_book.student_list:
+            print(f"- {student.names} ({student.email})")
+        print('-----------------------------------------')
+        break
+
+    elif choice == "8":
+        print("Printing course list...")
+        print('-----------------------------------------')
+        for course in grade_book.course_list:
+            print(
+                f"- {course.name} ({course.trimester}) - {course.credits} credits")
+        print('-----------------------------------------')
+        break
+
+    elif choice == "9":
         print("Exiting Grade Book Application...")
         break
 
