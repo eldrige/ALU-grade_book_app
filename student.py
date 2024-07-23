@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from course import Course
 
 
 class Student:
@@ -30,15 +31,11 @@ class Student:
         # self.calculate_GPA()
 
     def calculate_GPA(self):
-        """
-        Calculate the GPA of the student.
-        """
-        total_credits = sum(course['credits']
-                            for course in self.courses_registered)
-
-        if total_credits == 0:
-            self.GPA = 0.0
-        else:
-            weighted_sum = sum(course['grade'] * course['credits']
-                               for course in self.courses_registered)
-            self.GPA = weighted_sum / total_credits
+        total_credits = 0
+        total_grade_points = 0
+        for course in self.courses_registered:
+            # casted_course = Course(
+            #     course['name'], course['trimester'], course['credits'])
+            total_credits += course['credits']
+            total_grade_points += course['credits'] * course['grade']
+        self.GPA = total_grade_points / total_credits if total_credits else 0.0

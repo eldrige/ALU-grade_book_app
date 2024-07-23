@@ -1,32 +1,41 @@
 [
-    {
-        "email": "hmusangwa@alustudent.com",
-        "names": "Herve Musangwa",
-        "courses_registered": [
-            {
-                "name": "IPD",
-                "credits": 20.0,
-                "grade": 40.0
-            }
-        ],
-        "GPA": 0.0
-    },
-    {
-        "email": "jane@alustudent.com",
-        "names": "Jane Smith",
-        "courses_registered": [
-            {
-                "name": "IPD",
-                "credits": 20.0,
-                "grade": 70.0
-            }
-        ],
-        "GPA": 0.0
-    },
-    {
-        "email": "kelvin@gmail.com",
-        "names": "Kelvin Tawe",
-        "courses_registered": [],
-        "GPA": 0.0
-    }
+  {
+    "email": "hmusangwa@alustudent.com",
+    "names": "Herve Musangwa",
+    "courses_registered": [
+      {
+        "name": "IPD",
+        "trimester": "May 2024",
+        "credits": 70.0,
+        "grade": 40.0
+      }
+    ],
+    "GPA": 0.0
+  },
+  {
+    "email": "a.eldrige@alustudent.com",
+    "names": "Apoh Eldrige",
+    "courses_registered": [
+      {
+        "name": "Python Fundamentals",
+        "trimester": "Jan 2024",
+        "credits": 20,
+        "grade": 75.0
+      }
+    ],
+    "GPA": 0.0
+  },
+  {
+    "email": "kelvin@gmail.com",
+    "names": "Kelvin Tawe",
+    "courses_registered": [
+      {
+        "name": "Reflective Thinking",
+        "trimester": "Jan 2024",
+        "credits": 20,
+        "grade": 80.0
+      }
+    ],
+    "GPA": 0.0
+  }
 ]

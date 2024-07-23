@@ -30,47 +30,12 @@ while True:
         course = grade_book.add_course(name, trimester, credits)
 
     elif choice == "3":
-        email = input("Enter student email: ")
-        student = next(
-            (s for s in grade_book.student_list if s["email"] == email), None)
-        if student:
-            name = input("Enter course name: ")
-            course = next(
-                (c for c in grade_book.course_list if c['name'] == name), None)
-            if course:
-                grade_book.register_student_for_course(student, course)
-                print('-----------------------------------------------------')
-                print(f"{student.names} registered for {
-                      course.name} successfully.")
-                print('----------------------------------------------------')
-            else:
-                print("Registering ........")
-
-        else:
-            print("Student not found.")
-
-        # email = input("Enter student email: ")
-        # student = next(
-        #     (s for s in grade_book.student_list if s.email == email), None)
-        # if student:
-        #     name = input("Enter course name: ")
-        #     course = next(
-        #         (c for c in grade_book.course_list if c.name == name), None)
-        #     if course:
-        #         grade_book.register_student_for_course(student, course)
-        #         print('-----------------------------------------------------')
-        #         print(f"{student.names} registered for {
-        #               course.name} successfully.")
-        #         print('----------------------------------------------------')
-
-        #     else:
-        #         print("Course not found.")
-        # else:
-        #     print("Student not found.")
+        student_email = input("Enter student email: ")
+        course_name = input("Enter course name: ")
+        grade_book.register_student_for_course(student_email, course_name)
 
     elif choice == "4":
         grade_book.calculate_GPA()
-        grade_book.calculate_ranking()
         print("Student ranking calculated successfully.")
 
     elif choice == "5":

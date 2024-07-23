@@ -1,10 +1,10 @@
-import csv
+
 import json
 from student import Student
 from course import Course
 
-students_json = 'students.json'
-courses_json = 'courses.json'
+STUDENTS_JSON = 'students.json'
+COURSES_JSON = 'courses.json'
 
 
 class GradeBook:
@@ -43,15 +43,37 @@ class GradeBook:
 
         return course
 
-    def register_student_for_course(self, student, course):
-        student.register_for_course(course)
+    def register_student_for_course(self, student_email, course_name):
+        """
+        Register a student for a course.
+
+        Args:
+            student_email (str): The email of the student.
+            course_name (str): The name of the course.
+        """
+        student = next(
+            (s for s in self.student_list if s.email == student_email), None)
+        course = next(
+            (c for c in self.course_list if c.name == course_name), None)
+        if student and course:
+            student.register_for_course(course)
+            self.save_students()
+        else:
+            print("Student or course not found.")
 
     def calculate_GPA(self):
         for student in self.student_list:
             student.calculate_GPA()
+        sorted_students = sorted(
+            self.student_list, key=lambda s: s.GPA, reverse=True)
+        print('------------------------------------------------------------')
+        print(f"{'Rank':<5}{'Name':<20}{'Email':<20}{'GPA':<5}")
+        for i, student in enumerate(sorted_students, start=1):
+            print(f"{i:<5}{student.names:<20}{
+                  student.email:<20}{student.GPA:.2f}")
+        print('------------------------------------------------------------')
 
-    def calculate_ranking(self):
-        self.student_list.sort(key=lambda x: x.GPA, reverse=True)
+        return sorted_students
 
     def search_by_grade(self, grade_range):
         students = []
@@ -66,14 +88,14 @@ class GradeBook:
         """
         Save the student data to a JSON file.
         """
-        with open(students_json, 'w') as file:
-            json.dump(self.student_list, file, indent=4)
+        with open(STUDENTS_JSON, 'w') as file:
+            json.dump([s.__dict__ for s in self.student_list], file, indent=4)
 
     def save_courses(self):
         """
         Save the course data to a JSON file.
         """
-        with open(courses_json, 'w') as file:
+        with open(COURSES_JSON, 'w') as file:
             json.dump(self.course_list, file, indent=4)
 
     def generate_transcript(self, student):
@@ -87,18 +109,18 @@ class GradeBook:
 
     def load_students_from_json(self):
         try:
-            with open(students_json, 'r') as file:
+            with open(STUDENTS_JSON, 'r') as file:
                 students = json.load(file)
-                self.student_list = students
+                self.student_list = [Student(**data) for data in students]
         except FileNotFoundError:
             print(
-                f"No {students_json} file found. Starting with an empty student list.")
+                f"No {STUDENTS_JSON} file found. Starting with an empty student list.")
 
     def load_courses_from_json(self):
         try:
-            with open(courses_json, 'r') as file:
+            with open(COURSES_JSON, 'r') as file:
                 courses = json.load(file)
-                self.course_list = courses
+                self.course_list = [Course(**data) for data in courses]
         except FileNotFoundError:
             print(
-                f"No {courses_json} file found. Starting with an empty course list.")
+                f"No {COURSES_JSON} file found. Starting with an empty course list.")
