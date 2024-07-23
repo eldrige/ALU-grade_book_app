@@ -49,21 +49,21 @@ while True:
         else:
             print("Student not found.")
 
-    # elif choice == "4":
-    #     grade_book.calculate_GPA()
-    #     grade_book.calculate_ranking()
-    #     print("Student ranking calculated successfully.")
+    elif choice == "4":
+        grade_book.calculate_GPA()
+        grade_book.calculate_ranking()
+        print("Student ranking calculated successfully.")
 
-    # elif choice == "5":
-    #     min_grade = float(input("Enter minimum grade: "))
-    #     max_grade = float(input("Enter maximum grade: "))
-    #     students = grade_book.search_by_grade((min_grade, max_grade))
-    #     if students:
-    #         print("Students found:")
-    #         for student in students:
-    #             print(f"- {student.names} ({student.email})")
-    #     else:
-    #         print("No students found within the specified grade range.")
+    elif choice == "5":
+        min_grade = float(input("Enter minimum grade: "))
+        max_grade = float(input("Enter maximum grade: "))
+        students = grade_book.search_by_grade((min_grade, max_grade))
+        if students:
+            print("Students found:")
+            for student in students:
+                print(f"- {student.names} ({student.email})")
+        else:
+            print("No students found within the specified grade range.")
 
     elif choice == "6":
         email = input("Enter student email: ")

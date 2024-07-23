@@ -36,21 +36,21 @@ class GradeBook:
     def register_student_for_course(self, student, course):
         student.register_for_course(course)
 
-    # def calculate_GPA(self):
-    #     for student in self.student_list:
-    #         student.calculate_GPA()
+    def calculate_GPA(self):
+        for student in self.student_list:
+            student.calculate_GPA()
 
-    # def calculate_ranking(self):
-    #     self.student_list.sort(key=lambda x: x.GPA, reverse=True)
+    def calculate_ranking(self):
+        self.student_list.sort(key=lambda x: x.GPA, reverse=True)
 
-    # def search_by_grade(self, grade_range):
-    #     students = []
-    #     for student in self.student_list:
-    #         for course in student.courses_registered:
-    #             if grade_range[0] <= course.grade <= grade_range[1]:
-    #                 students.append(student)
-    #                 break
-    #     return students
+    def search_by_grade(self, grade_range):
+        students = []
+        for student in self.student_list:
+            for course in student.courses_registered:
+                if grade_range[0] <= course.grade <= grade_range[1]:
+                    students.append(student)
+                    break
+        return students
 
     def save_students_to_csv(self):
         with open(students_csv_file, 'a', newline='') as csvfile:
@@ -99,3 +99,10 @@ class GradeBook:
         except FileNotFoundError:
             print(
                 f"No {courses_csv_file} file found. Starting with an empty course list.")
+
+    def update_student_course_in_csv(self, email, course):
+        with open(courses_csv_file, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for course in self.course_list:
+                writer.writerow(
+                    [course.name, course.trimester, course.credits])
